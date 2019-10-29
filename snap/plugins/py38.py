@@ -55,7 +55,8 @@ class PythonPlugin(snapcraft.BasePlugin):
                 ' '.join(self.options.python_packages)))
 
         if self.options.source:
-            self._run('/usr/bin/python3.8 -m pip install -t site-packages .', cwd='.')
+            target = os.path.join(self.installdir, 'site-packages')
+            self._run('/usr/bin/python3.8 -m pip install -t {} .'.format(target), cwd='.')
 
         for root, _, _ in os.walk(self.installdir, topdown=False):
             if root.endswith('__pycache__') and os.path.exists(root):
