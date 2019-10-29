@@ -7,6 +7,11 @@ description: |
 
 grade: stable
 confinement: strict
+architectures:
+  - build-on: amd64
+  - build-on: i386
+  - build-on: armhf
+  - build-on: arm64
 
 apps:
   python38:
