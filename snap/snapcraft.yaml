@@ -1,0 +1,19 @@
+name: python38
+version: '3.8.0'
+base: core18
+summary: Python 3.8
+description: |
+  Python 3.8
+
+grade: stable
+confinement: strict
+
+apps:
+  python38:
+    command: python
+
+parts:
+  python38:
+    plugin: py38
+    python-packages:
+      - __none__
