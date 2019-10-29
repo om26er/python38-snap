@@ -16,6 +16,8 @@ architectures:
 apps:
   python38:
     command: python
+    environment:
+      PYTHONPYCACHEPREFIX: $SNAP_DATA/pycache
 
 parts:
   python38:
