@@ -15,14 +15,24 @@ architectures:
 
 apps:
   python38:
-    command: python
+    command: python3.8
     environment:
       PYTHONPYCACHEPREFIX: $SNAP_DATA/pycache
+      PYTHONPATH: $PYTHONPATH:$SNAP/lib/python3.8/site-packages
     plugs:
+      - network
       - home
 
 parts:
   python38:
-    plugin: py38
-    python-packages:
-      - __none__
+    plugin: nil
+    stage-packages:
+      - python3.8
+      - python3.8-distutils
+    override-build: |
+      snapcraftctl build
+      /bin/bash -c "/usr/bin/python3.8 <(wget -q -O - https://bootstrap.pypa.io/get-pip.py) --prefix $SNAPCRAFT_PART_INSTALL"
+    build-packages:
+      - wget
+      - python3.8
+      - python3.8-distutils
