@@ -28,11 +28,13 @@ parts:
     plugin: nil
     stage-packages:
       - python3.8
-      - python3.8-distutils
     override-build: |
       snapcraftctl build
-      /bin/bash -c "/usr/bin/python3.8 <(wget -q -O - https://bootstrap.pypa.io/get-pip.py) --prefix $SNAPCRAFT_PART_INSTALL"
+      /bin/bash -c "/usr/bin/python3.8 <(wget -q -O - https://bootstrap.pypa.io/get-pip.py) --prefix $SNAPCRAFT_PART_INSTALL --no-compile"
+      cp -r /usr/lib/python3.8/distutils $SNAPCRAFT_PART_INSTALL/lib/python3.8/site-packages/distutils
+      find $SNAPCRAFT_PART_INSTALL -type d -name __pycache__ -print0 | xargs -0 rm -rf
     build-packages:
       - wget
       - python3.8
+      - python3.8-venv
       - python3.8-distutils
